@@ -1,7 +1,7 @@
 defmodule EventRelay.MixProject do
   use Mix.Project
 
-  @source_url "https://github.com/eventrelay/eventrelay_client"
+  @source_url "https://github.com/eventrelay/eventrelay_client_elixir"
   @version "0.1.0"
 
   def project do
@@ -17,7 +17,7 @@ defmodule EventRelay.MixProject do
 
   def package do
     [
-      description: "Little bit of help defining authorization policies",
+      description: "An EventRelay client for Elixir",
       maintainers: ["Thomas Brewer"],
       contributors: ["Thomas Brewer"],
       licenses: ["MIT"],
@@ -52,7 +52,6 @@ defmodule EventRelay.MixProject do
   defp docs do
     [
       extras: [
-        "CHANGELOG.md",
         LICENSE: [title: "License"],
         "README.md": [title: "Readme"]
       ],

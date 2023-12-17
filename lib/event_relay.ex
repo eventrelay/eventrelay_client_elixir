@@ -2,8 +2,10 @@ defmodule EventRelay do
   @moduledoc """
   Documentation for `EventRelay`.
   """
+  require Logger
   alias ERWeb.Grpc.Eventrelay.Events.Stub
   alias EventRelay.Context
+  alias EventRelay.Event
 
   def channel(opts) do
     EventRelay.Channel.new(opts)
@@ -16,16 +18,7 @@ defmodule EventRelay do
   def publish_events(%Context{channel: channel} = _context, topic, events) do
     events =
       Enum.map(events, fn event ->
-        event =
-          case Jason.encode(event.data) do
-            {:ok, json} ->
-              Map.put(event, :data, json)
-
-            error ->
-              Logger.error("EventRelay.publish_events error=#{inspect(error)}")
-              event
-          end
-
+        event = Event.encode_data(event)
         struct(ERWeb.Grpc.Eventrelay.NewEvent, event)
       end)
 

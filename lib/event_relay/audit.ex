@@ -5,6 +5,7 @@ defmodule EventRelay.Audit do
   """
 
   alias EventRelay.Audit.Options
+  alias EventRelay.Event
 
   @doc """
     Log an event to the audit log in EventRelay
@@ -24,16 +25,19 @@ defmodule EventRelay.Audit do
 
     data = Map.merge(default_data, opts_with_default[:data])
 
-    event = %{
-      name: opts_with_default[:name],
-      source: opts_with_default[:source],
-      reference_key: opts_with_default[:reference_key],
-      group_key: opts_with_default[:group_key],
-      user_id: opts_with_default[:user_id],
-      data: data,
-      context: opts_with_default[:context],
-      occurred_at: opts_with_default[:occurred_at]
-    }
+    event =
+      %{
+        name: opts_with_default[:name],
+        source: opts_with_default[:source],
+        reference_key: opts_with_default[:reference_key],
+        group_key: opts_with_default[:group_key],
+        user_id: opts_with_default[:user_id],
+        data: data,
+        context: opts_with_default[:context],
+        occurred_at: opts_with_default[:occurred_at]
+      }
+      |> Event.encode_data()
+      |> Event.add_hmac()
 
     EventRelay.call(:publish_events, context, topic, [event])
   end
