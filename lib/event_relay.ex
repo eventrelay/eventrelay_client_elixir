@@ -28,12 +28,12 @@ defmodule EventRelay do
       events: events
     }
 
-    Client.publish_events(channel, request)
+    Stub.publish_events(channel, request)
   end
 
-  def pull_queued_events(channel, subscription_id, batch_size) do
+  def pull_queued_events(channel, destination_id, batch_size) do
     request = %ERWeb.Grpc.Eventrelay.PullQueuedEventsRequest{
-      subscription_id: subscription_id,
+      destination_id: destination_id,
       batch_size: batch_size
     }
 
