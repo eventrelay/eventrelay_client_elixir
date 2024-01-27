@@ -80,19 +80,23 @@ defmodule EventRelay.Audit.Options do
 
   @definition NimbleOptions.new!(definition)
 
+  @doc false
   def definition do
     @definition
   end
 
+  @doc false
   def type_non_empty_string("", [{:name, name}]) do
     {:error, "expected :#{name} to be a non-empty string, got: \"\""}
   end
 
+  @doc false
   def type_non_empty_string(value, _)
       when not is_nil(value) and is_binary(value) do
     {:ok, value}
   end
 
+  @doc false
   def type_non_empty_string(value, [{:name, name}]) do
     {:error, "expected :#{name} to be a non-empty string, got: #{inspect(value)}"}
   end
