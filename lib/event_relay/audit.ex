@@ -1,7 +1,6 @@
 defmodule EventRelay.Audit do
   @moduledoc """
     Send audit logging events to EventRelay
-
   """
 
   alias EventRelay.Audit.Options
