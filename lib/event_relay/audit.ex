@@ -1,7 +1,6 @@
 defmodule EventRelay.Audit do
   @moduledoc """
     Send audit logging events to EventRelay
-
   """
 
   alias EventRelay.Audit.Options
@@ -37,7 +36,7 @@ defmodule EventRelay.Audit do
         occurred_at: opts_with_default[:occurred_at]
       }
       |> Event.encode_data()
-      |> Event.add_hmac()
+      |> Event.put_hmac()
 
     EventRelay.call(:publish_events, context, topic, [event])
   end

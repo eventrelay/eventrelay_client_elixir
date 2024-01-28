@@ -46,6 +46,8 @@ defmodule EventRelay.Channel do
         grpc_opts
       end
 
-    GRPC.Stub.connect("#{host}:#{port}", grpc_opts)
+    "#{host}:#{port}"
+    |> GRPC.Stub.connect(grpc_opts)
+    |> Flamel.Wrap.unwrap_ok_or_nil()
   end
 end

@@ -4,6 +4,10 @@ defmodule EventRelay.Event do
   """
   require Logger
 
+  @doc """
+    Encodes the event data 
+  """
+  @spec encode_data(map()) :: map()
   def encode_data(%{data: data} = event) when is_binary(data) do
     event
   end
@@ -19,11 +23,15 @@ defmodule EventRelay.Event do
     end
   end
 
-  def add_hmac(%{data: data} = event) when is_map(data) do
-    encode_data(event) |> add_hmac()
+  @doc """
+    Calculates the HMAC for an event and puts it in the event context
+  """
+  @spec put_hmac(map()) :: map()
+  def put_hmac(%{data: data} = event) when is_map(data) do
+    encode_data(event) |> put_hmac()
   end
 
-  def add_hmac(%{data: data} = event) when is_binary(data) do
+  def put_hmac(%{data: data} = event) when is_binary(data) do
     hmac =
       :crypto.mac(:hmac, :sha256, System.get_env("ER_CLIENT_HMAC_SECRET"), data)
       |> Base.encode16()

@@ -39,13 +39,16 @@ defmodule EventRelay.MixProject do
       {:ex_doc, ">= 0.0.0", only: :dev, runtime: false},
       {:ex_check, "~> 0.14.0", only: [:dev], runtime: false},
       {:credo, ">= 0.0.0", only: [:dev], runtime: false},
+      {:credo_ignore_file_plugin, "~> 0.1.0", only: [:dev]},
       {:dialyxir, ">= 0.0.0", only: [:dev], runtime: false},
       {:doctor, ">= 0.0.0", only: [:dev], runtime: false},
+      {:sobelow, "~> 0.13", only: [:dev, :test], runtime: false},
       {:grpc, "~> 0.7.0"},
       {:protobuf, "~> 0.11"},
       {:jason, "~> 1.1"},
       {:mimic, "~> 1.7", only: :test},
-      {:nimble_options, "~> 1.0"}
+      {:nimble_options, "~> 1.0"},
+      {:flamel, "~> 1.4"}
     ]
   end
 
